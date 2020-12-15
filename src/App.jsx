@@ -6,6 +6,7 @@ const App = () => {
     return (
         <div>
             <h1>React大法好</h1>
+            <p>这是一个react项目</p>
         </div>
     )
 }
