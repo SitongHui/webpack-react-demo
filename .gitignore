@@ -1,0 +1,12 @@
+dist/
+blank/
+.temp/
+.vscode
+.rn_temp/
+node_modules/
+.DS_Store
+.idea
+.eslintrc
+package-lock.json
+yarn.lock
+yarn-error.log
