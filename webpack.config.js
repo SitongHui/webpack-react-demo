@@ -1,8 +1,24 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
+const BoundleAnalyZerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
+    optimization: {
+        minimizer: [new TerserPlugin({
+            cache: true, // 缓存，加快构建速度
+            parallel: true, // 开启多线程，加快打包优化
+            terserOptions: {
+                compress: {
+                    unused: true, //剔除无用代码
+                    drop_debugger: true,
+                    drop_console: true,
+                    dead_code: true
+                }
+            }
+        })]
+    },
     // import时，可不用写文件后缀名
     resolve: {
         extensions: ['.js', '.jsx', '.json']
@@ -10,6 +26,8 @@ module.exports = {
     entry: path.resolve(__dirname, 'src/index.jsx'),
     mode: 'development',
     module: {
+        // 配置不解析的文件
+        noParse: /node_modules\/(jquery\.js)/,
         rules: [
             {
                 test: /\.jsx?/, // 即匹配了js文件又匹配了jsx文件
@@ -38,7 +56,8 @@ module.exports = {
         }),
 
         // 热更新
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new BoundleAnalyZerPlugin()
     ],
     devServer: {
         hot: true
