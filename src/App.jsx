@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { isNull, isZero} from "./util";
+
+isNull({});
 
 // ES6语法
 const App = () => {
